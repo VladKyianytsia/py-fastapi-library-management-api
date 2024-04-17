@@ -50,9 +50,7 @@ def create_author(
         author: schemas.AuthorCreate,
         db: Session = Depends(get_db)
 ):
-    db_author = db.query(models.Author).filter(
-        models.Author.name == author.name
-    ).first()
+    db_author = crud.get_author_by_name(db=db, name=author.name)
 
     if db_author:
         raise HTTPException(
@@ -70,7 +68,12 @@ def read_books(
         limit: int = 100,
         author_id: int = None
 ):
-    return crud.get_all_books(db=db, skip=skip, limit=limit, author_id=author_id)
+    return crud.get_all_books(
+        db=db,
+        skip=skip,
+        limit=limit,
+        author_id=author_id
+    )
 
 
 @app.get("/books/{book_id}/", response_model=schemas.Book)
