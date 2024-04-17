@@ -38,7 +38,7 @@ def get_all_books(
         db: Session,
         skip: int = 0,
         limit: int = 100,
-        author_id: int = None
+        author_id: int | None = None
 ):
     queryset = db.query(models.Book)
 

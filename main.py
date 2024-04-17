@@ -66,7 +66,7 @@ def read_books(
         db: Session = Depends(),
         skip: int = 0,
         limit: int = 100,
-        author_id: int = None
+        author_id: int | None = None
 ):
     return crud.get_all_books(
         db=db,
